@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    env:
+      NANIT_USERNAME: ${{ secrets.NANIT_USERNAME }}
+      NANIT_PASSWORD: ${{ secrets.NANIT_PASSWORD }}
+
     steps:
       - uses: actions/checkout@v5
 
