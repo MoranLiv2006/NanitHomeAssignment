@@ -28,7 +28,9 @@ def streaming_validator():
 
 @pytest.fixture(scope="function")
 def mobile_session(request):
+    # code that is before the yield represents the "setup" before each test
     platform = request.param
     session = MobileSession(platform=platform)
     session.launch_app()
-    return session
+    yield session # here the actual tests are running
+    # code that is after the yield represents the "teardown" after each test
