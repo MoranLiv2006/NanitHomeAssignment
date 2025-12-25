@@ -9,7 +9,7 @@ from infra.streaming_validator import StreamingValidator
 load_dotenv()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def credentials():
     return {
         "email": os.getenv("NANIT_USERNAME"),
@@ -24,13 +24,13 @@ def streaming_validator():
     validator.set_network_condition(EnvironmentConditions.NORMAL)
     yield validator
     # teardown
-    validator.set_network_condition(EnvironmentConditions.NORMAL)
+    validator.set_network_condition(EnvironmentConditions.NORMAL) # return to normal env condition - our starting point.
 
 @pytest.fixture(scope="function")
 def mobile_session(request):
-    # code that is before the yield represents the "setup" before each test
+    # code that is before the yield represents the "setup" before each test.
     platform = request.param
     session = MobileSession(platform=platform)
     session.launch_app()
     yield session # here the actual tests are running
-    # code that is after the yield represents the "teardown" after each test
+    # code that is after the yield represents the "teardown" after each test.
