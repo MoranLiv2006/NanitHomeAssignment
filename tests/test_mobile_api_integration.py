@@ -9,7 +9,8 @@ class TestMobileApiIntegration:
 
     @pytest.mark.integration
     @pytest.mark.parametrize("mobile_session", ["ios", "android"], indirect=True)
-    def test_stream_status_is_consistent_in_both_the_api_and_the_mobile_layers(self, mobile_session, streaming_validator,
+    def test_stream_status_is_consistent_in_both_the_api_and_the_mobile_layers(self, mobile_session,
+                                                                               streaming_validator,
                                                                                credentials):
         # mobile section
         welcome = WelcomeScreen(mobile_session)
@@ -19,6 +20,7 @@ class TestMobileApiIntegration:
         welcome.tap_login_button()
         login.login_the_app(credentials["email"], credentials["password"])
         mobile_session.navigate_to_live_stream()
+        live_stream.wait_for_stream_visible(timeout=10)
 
         assert live_stream.validate_stream_status_label() == "streaming"
         assert live_stream.is_stream_visible()
