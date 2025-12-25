@@ -19,6 +19,7 @@ class TestMobileApiIntegration:
         login.login_the_app(credentials["email"], credentials["password"])
         mobile_session.navigate_to_live_stream()
 
+        assert live_stream.validate_stream_status_label() == "streaming"
         assert live_stream.is_stream_visible()
 
         # api section
