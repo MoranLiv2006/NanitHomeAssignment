@@ -19,6 +19,9 @@ class MobileSession:
     def tap(self, element_id: str):
         pass
 
+    def get_text(self, element_id: str):
+        pass
+
     def enter_text(self, element_id: str, text: str):
         pass
 
