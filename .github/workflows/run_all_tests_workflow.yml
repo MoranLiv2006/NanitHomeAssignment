@@ -24,5 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run mock server
+        run: python .\mock_services\mock_stream_server.py
+
+
+
       - name: Run tests
         run: pytest
