@@ -20,3 +20,15 @@ class TestMobileLogin:
 
         assert live_stream_screen.validate_stream_status_label() == "streaming"
         assert live_stream_screen.is_stream_visible() is True
+
+    @pytest.mark.mobile
+    @pytest.mark.parametrize("mobile_session", ["ios", "android"], indirect=True)
+    def test_login_with_invalid_credentials(self, mobile_session):
+        welcome_screen = WelcomeScreen(mobile_session)
+        login_screen = LoginScreen(mobile_session)
+
+        welcome_screen.tap_login_button()
+
+        login_screen.login_the_app("wrong_email", "wrong_password")
+
+        assert login_screen.is_error_displayed()
